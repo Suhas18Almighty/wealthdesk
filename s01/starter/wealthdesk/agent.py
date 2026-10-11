@@ -10,7 +10,7 @@ Run the agent from the repo root:
 Session 1 graph:
     START --> respond --> END
 """
-from langgraph.graph import END, StateGraph
+from langgraph.graph import END, START, StateGraph
 
 from .nodes import respond
 from .state import WealthDeskState
@@ -28,7 +28,7 @@ from .state import WealthDeskState
 #        builder.add_node("respond", respond)
 #
 #   3. Sets the entry point (first node to run):
-#        builder.set_entry_point("respond")
+#        builder.add_edge(START, "respond")
 #
 #   4. Connects respond → END (the graph exits after one response):
 #        builder.add_edge("respond", END)

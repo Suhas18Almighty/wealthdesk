@@ -124,12 +124,11 @@ wealthdesk/
 | S8 | US-06 pt.2 | Agent calls tools via MCP protocol |
 | S9 | US-08+10 | Compliance filter (SEBI/DPDP) + LangSmith tracing |
 | S10 | US-11 pt.1 + US-09 | Multi-agent: Supervisor, Documents Agent, Rates Agent |
-| S11 | -- | Industry guest session (no build) |
 | S12 | US-11 pt.2 | Multi-agent system complete: perf gate + Streamlit skeleton |
 | S13 | US-12+16 | Streamlit UI + Human-in-the-Loop approval |
 | S14 | US-14 | Security and guardrails (OWASP LLM Top 10 + DPDP Act) |
 | S15 | US-13 | Dockerfile + Docker run + cloud deployment |
-| S16 | US-15+17 | Advanced eval + data flywheel + prompt versioning |
+| S16 | US-16 | FastAPI + SSE MCP + web frontend (production REST API) |
 
 ---
 

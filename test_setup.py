@@ -10,6 +10,7 @@ Questions? Post in the WhatsApp group.
 """
 
 import sys
+import shutil
 import subprocess
 import importlib.util
 import os
@@ -77,7 +78,14 @@ memory = {
     "aiosqlite":                   "aiosqlite",
 }
 for pkg, imp in memory.items():
+<<<<<<< HEAD
     spec = importlib.util.find_spec(imp)
+=======
+    try:
+        spec = importlib.util.find_spec(imp)
+    except ModuleNotFoundError:   # parent package (langgraph) not installed
+        spec = None
+>>>>>>> 9c14b9f0076a460ac0bf4270a9a96826dbdf08d7
     check(pkg, spec is not None, fix=f"pip install {pkg}")
 
 # ── LangGraph Studio (Sessions 1–16) ──────────────────────
@@ -152,8 +160,16 @@ print("\nAPI Keys")
 env_exists = os.path.exists(".env")
 check(".env file exists", env_exists, fix="Copy .env.example to .env and add your GROQ_API_KEY")
 
+<<<<<<< HEAD
 from dotenv import load_dotenv
 load_dotenv()
+=======
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass   # already reported above as a missing package
+>>>>>>> 9c14b9f0076a460ac0bf4270a9a96826dbdf08d7
 
 groq_key = os.environ.get("GROQ_API_KEY", "")
 check(
@@ -171,7 +187,11 @@ if groq_key and not groq_key.startswith("your_") and groq_key != "gsk_your_actua
         response = client.chat.completions.create(
             model="openai/gpt-oss-20b",
             messages=[{"role": "user", "content": "Reply with exactly: READY"}],
+<<<<<<< HEAD
             max_tokens=200,
+=======
+            max_tokens=200,   # gpt-oss-20b is a reasoning model -- needs room to think before replying
+>>>>>>> 9c14b9f0076a460ac0bf4270a9a96826dbdf08d7
         )
         reply = response.choices[0].message.content.strip()
         check(
@@ -214,6 +234,31 @@ check(
     fix="Get a free key at smith.langchain.com and add LANGSMITH_API_KEY to .env",
     warn=not ls_set   # warn rather than fail — not needed until Session 9
 )
+<<<<<<< HEAD
+=======
+
+# ── MCP Inspector ──────────────────────────────────────────
+print("\nMCP Inspector (needed from Session 7)")
+try:
+    # Only check that npx exists -- running the inspector itself starts a server that never exits.
+    result = subprocess.run(
+        [shutil.which("npx") or "npx", "--version"],
+        capture_output=True, text=True, timeout=30
+    )
+    check(
+        "npx / MCP Inspector accessible",
+        result.returncode == 0,
+        fix="Install Node.js (LTS) from nodejs.org — npx is included"
+    )
+except FileNotFoundError:
+    check(
+        "npx / MCP Inspector accessible",
+        False,
+        fix="Install Node.js (LTS) from nodejs.org — npx is included"
+    )
+except Exception as e:
+    check("npx / MCP Inspector accessible", False, fix=f"Error: {e}")
+>>>>>>> 9c14b9f0076a460ac0bf4270a9a96826dbdf08d7
 
 # ── MCP Inspector ──────────────────────────────────────────
 """print("\nMCP Inspector (needed from Session 7)")

@@ -1,5 +1,5 @@
-# WealthDesk -- Agentic AI Engineering, Batch 1
-# Install once and keep for the full 17 sessions:
+# WealthDesk -- Agentic AI Engineering, Batch 2
+# Install once and keep for the full 18 sessions:
 #   pip install -r requirements.txt
 #
 # All packages are included upfront to avoid mid-session install interruptions.
@@ -8,6 +8,9 @@
 # Upper bounds are set on packages with a history of breaking changes across
 # major versions (langchain ecosystem, pydantic, openai). This prevents pip
 # from silently resolving to an incompatible future release.
+#
+# The langchain packages are capped at <2.0 (the 1.x line): langgraph 1.x and
+# langchain-mcp-adapters 0.3+ both require langchain-core 1.x.
 
 # --- Sessions 1-17: Core LangGraph stack ---
 langgraph==1.2.14
@@ -22,7 +25,7 @@ langchain-groq==1.1.3               # Groq (openai/gpt-oss-20b) -- the agent LLM
 # --- Session 1+: Environment and runtime ---
 python-dotenv>=1.0.0,<2.0                 # reads .env -- first line of every agent file
 pydantic>=2.0.0,<3.0                      # state validation, structured outputs
-langchain-ollama>=0.2.0,<1.0             # ChatOllama -- classroom fallback if Groq is unreachable (S01 instructor notes)
+langchain-ollama>=0.2.0,<2.0             # ChatOllama -- classroom fallback if Groq is unreachable (S01 instructor notes)
 
 # --- Session 4+: Vector store and RAG ---
 chromadb>=0.5.0,<1.0
@@ -32,7 +35,7 @@ sentence-transformers>=2.7.0,<4.0        # backing library for HuggingFaceEmbedd
 
 # --- Session 6+: Evaluation (LLM-as-judge) ---
 openai>=1.0.0,<2.0                        # GPT-4o-mini as the eval judge (different provider from Groq)
-langchain-openai>=0.1.0,<1.0
+langchain-openai>=0.1.0,<2.0
 
 # --- Session 9+: Observability ---
 langsmith>=0.1.0,<2.0
@@ -41,7 +44,7 @@ langsmith>=0.1.0,<2.0
 mcp>=1.0.0,<2.0
 
 # --- Session 8+: MCP agent tool loading ---
-langchain-mcp-adapters>=0.3.0,<1.0
+langchain-mcp-adapters>=0.3.0,<2.0
 
 # --- Session 13+: Web UI ---
 streamlit>=1.35.0,<2.0
@@ -53,6 +56,9 @@ streamlit>=1.35.0,<2.0
 # --- Session 16+: FastAPI + MCP SSE ---
 fastapi>=0.115.0,<1.0
 uvicorn[standard]>=0.30.0,<1.0
+
+# --- Session 17+: Compliance (SEBI regulation ingest) ---
+langchain-community>=0.4.0,<1.0          # TextLoader used by ingest_sebi.py
 
 # --- Session 18+: Production security hardening ---
 pydantic-settings>=2.0.0,<3.0            # Settings with startup validation
